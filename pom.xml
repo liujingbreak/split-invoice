@@ -1,0 +1,72 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.tradeshift.pirate</groupId>
+	<artifactId>splitinvoice</artifactId>
+	<version>0.1</version>
+	<packaging>war</packaging>
+	
+	<name>Pirate day Split Invoice</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jettyVersion>9.0.0.M5</jettyVersion>
+	</properties>
+
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.jetty.orbit</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>3.0.0.v201112011016</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.2.0.v20101020</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>19818</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+						<!-- <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
+							<port>${jettySslPort}</port>
+							<maxIdleTime>60000</maxIdleTime>
+							<keystore>${basedir}/deployment/local/jetty-ssl.keystore</keystore>
+							<password>jetty7</password>
+							<keyPassword>jetty7</keyPassword>
+						</connector> -->
+					</connectors>
+					<scanIntervalSeconds>0</scanIntervalSeconds>
+					<stopKey>foo</stopKey>
+					<stopPort>19819</stopPort>
+					<!-- <webAppConfig>
+						<contextPath>/tradeshift-backend</contextPath>
+						<jettyEnvXml>${jettyEnvXml}</jettyEnvXml>
+					</webAppConfig>
+					<overrideWebXml>${overrideWebXml}</overrideWebXml>
+					<reload>automatic</reload>
+					<systemProperties>
+						<systemProperty>
+							<name>java.awt.headless</name>
+							<value>true</value>
+						</systemProperty>
+						<systemProperty>
+							<name>deploymentDir</name>
+							<value>${deploymentDir}</value>
+						</systemProperty>
+					</systemProperties> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

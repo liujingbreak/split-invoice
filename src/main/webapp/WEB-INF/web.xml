@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+  
+  <!-- <filter>
+    <filter-name>filterChainProxy</filter-name>
+    <filter-class>org.springframework.security.web.FilterChainProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>filterChainProxy</filter-name>
+    <filter-mapping>/dwr/*</filter-mapping>
+  </filter-mapping> -->
+  
+  <mime-mapping>
+    <extension>appcache</extension>
+    <mime-type>text/cache-manifest</mime-type>
+  </mime-mapping>
+  <!-- Servlets -->
+ 
+  <welcome-file-list>
+    <welcome-file>/index.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
