@@ -2,6 +2,12 @@
 	font-size: 14px;
 	font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;;
 	box-sizing: border-box;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 *:focus {
@@ -14,7 +20,7 @@ body {
 
 .main {
 	width: 960px;
-	height: 600px;
+	height: 650px;
 	margin: auto;
 	margin-top: 5px;
 	background-color: rgb(255, 255, 255);
@@ -25,8 +31,7 @@ body {
 
 .main .toolbar {
 	background-color: rgba(214, 214, 187, 0.7);
-	height: 65px;
-	margin-bottom: 5px;
+	height: 60px;
 }
 
 .main .toolbar-button {
@@ -38,30 +43,67 @@ body {
 	font-weight: bold;
 	line-height: 16px;
 	padding: 16px;
-	width: 125px;
+	width: 160px;
 	background-color: rgb(32, 160, 233);;
 	height: 50px;
 	float: right;
 	margin: 5px;
+	text-align: center;
 }
 
 .main .toolbar-button:active {
 	border-bottom: none;
 	border-top: rgba(51, 51, 51, 0.5) 1px solid;
 }
-
+.adv-split.show{
+	background: #ffc;
+	float: left;
+	border-top-right-radius: 5px;
+	box-shadow: #AAA 0 4px 4px;
+}
+.adv-split .toolbar-button {
+	float: left;
+}
+.secondary-toolbar {
+	background: #ffc;
+	padding: 10px 20px;
+	position: relative;
+}
+.secondary-toolbar * {
+	font-size: 16px;
+}
+.secondary-toolbar .content {
+	padding-left: 20px;
+	line-height: 40px;
+}
+.secondary-toolbar .content > div {
+	display: inline-block;
+}
+.secondary-toolbar .toolbar-button {
+	background-color: rgb(99, 162, 57);
+	height: 40px;
+	width: 100px;
+	line-height: 40px;
+	padding: 0;
+	margin: 0;
+}
 .origin-invoice,
 .split-invoices {
-	width: 480px;
-	float: left;
-	height: 100%;
-	overflow: auto;
+	width: 49.5%;
+	display: inline-block;
+	height: 600px;
 	padding: 0 10px;
 }
 
 .origin-invoice {
 	border-right: 1px dotted rgb(211, 211, 211);
-	
+	overflow: auto;
+}
+
+.split-invoices .scrollable{
+	overflow: auto;
+	height: 93%;
+	padding: 10px 0;
 }
 
 .invoice {
@@ -76,13 +118,14 @@ body {
 
 .header {
 	position: relative;
-	height: 36px;
+	height: 7%;
 	line-height: 36px;
 	font-style: italic;
 	margin: 0 -10px;
 	font-size: 24px;
 	padding-left: 10px;
 	text-decoration: underline;
+	text-align: center;
 }
 .invoice .header {
 	font-size: 16px;
@@ -91,6 +134,7 @@ body {
 	position: relative;
 	margin: 0;
 	padding-left: 0;
+	text-align: left;
 }
 .invoice .header .close {
 	position: absolute;
@@ -162,9 +206,7 @@ body {
 }
 
 .field.quantity > input.text {
-	width: 50px;
-	border: 0;
-	border-bottom: 1px solid #AAA;
+	width: 100px;
 }
 
 .mask {

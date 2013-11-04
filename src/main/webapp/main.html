@@ -3,44 +3,73 @@
 <head>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body ng-app>
-	<div class="main" ng-controller="splitCtrl">
-		<div class="toolbar">
-			<div class="toolbar-button" ng-click="newSplitInvoice()" >New Split</div>
-			<div class="toolbar-button" ng-click="resetSplit()" >Reset</div>
-			<div class="toolbar-button" ng-click="save()" >Save Result</div>
-		</div>
-		<div class="origin-invoice">
-			<div class="header">Original Invoice</div>
-			<div class="item" ng-class="{selected: item.selected}" ng-repeat="item in originItems" ng-click="selectItemToSplit(item)" ng-show="item.remainQuantity > 0">
-				<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.remainQuantity}}</div>
-				<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div>
-				<div class="field quantity">Quantity: {{item.remainQuantity}}</div>
-			</div>
-		</div>
-		<div class="split-invoices" ng-class="{splitting: isSplitting}">
-			<div class="header">Splitted Invoices</div>
-			<div class="invoice" ng-class="{empty: invoice.items.length==0}" ng-repeat="invoice in splitInvoices" ng-click="addItemToSplitInvoice(selectedItem.LineId, invoice.id)">
-				<div class="header">
-					Invoice #{{invoice.id}}
-					<div class="close" ng-click="deleteSplitInvoice(invoice.id)">x</div>
+<body>
+	<div ng-app>
+		<div ng-controller="splitCtrl">
+			<div class="main">
+				<div class="toolbar">
+					<div class="toolbar-button" ng-click="newSplitInvoice()" >New Split invoice</div>
+					<div class="toolbar-button" ng-click="resetSplit()" >Reset</div>
+					<div class="toolbar-button" ng-click="save()" >Save Result</div>
+					<div class="adv-split" ng-class="{show: showAdvSplit}">
+						<div class="toolbar-button" ng-click="showAdvSplit = !showAdvSplit" >Advanced Split</div>
+					</div>
 				</div>
-				<div class="item" ng-repeat="item in invoice.items">
-					<div class="line">
-						<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.Quantity.value}}</div>
-						<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div><div class="field quantity">Quantity: 
-							<input class="range" type="range" min="0" max="{{getItemRemaining(item.LineId, invoice.id)}}" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >
-							<input class="text" type="text" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >
+				<div class="secondary-toolbar" ng-show="showAdvSplit">
+					<div class="advanced-split">
+					<select ng-model="adv_split_opt" ng-options="o.n for o in advancedSplitOptions"><option value="">Pick a Split Options</option></select>
+					<div class="content">
+						<div ng-show="adv_split_opt.v==1">
+							Split the <select ng-model="adv_invoice_item" ng-options="so.n for so in evenSplitOptions"></select> evenly by <input type="number" min="1" max="100" ng-model="adv_invoice_pcs"> invoices. 
+						</div>
+						<div ng-show="adv_split_opt.v==2">
+							Invoice will be splitted so that total amount for each invoice doesn't exceed <input type="text" ng-model="adv_invoice_max">.
+						</div>
+						<div ng-show="adv_split_opt.v==3">
+							New invoices will be created for each item in this invoice.
+						</div>
+						<div ng-show="adv_split_opt.v" class="toolbar-button" ng-click="adv_split_opt.action()">Go</div>
+					</div>
+				</div>
+				</div>
+				<div class="origin-invoice">
+					<div class="header">Original Invoice</div>
+					<div class="item" ng-class="{selected: item.selected}" ng-repeat="item in originItems" ng-click="selectItemToSplit(item)" ng-show="item.remainQuantity > 0">
+						<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.remainQuantity}}</div>
+						<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div>
+						<div class="field quantity">Quantity: {{item.remainQuantity}}</div>
+					</div>
+				</div>
+				<div class="split-invoices" ng-class="{splitting: isSplitting}">
+					<div class="header">Splitted Invoices</div>
+					<div class="scrollable">
+						<div class="invoice" ng-class="{empty: invoice.items.length==0}" ng-repeat="invoice in splitInvoices" ng-click="addItemToSplitInvoice(selectedItem.LineId, invoice.id)">
+							<div class="header">
+								Invoice #{{$index + 1}} ({{getInvoiceTotal(invoice)}})
+								<div class="close" ng-click="deleteSplitInvoice(invoice.id)">x</div>
+							</div>
+							<div class="item" ng-repeat="item in invoice.items">
+								<div class="line">
+									<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.Quantity.value}}</div>
+									<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div><div class="field quantity">Quantity: 
+										<!--<input class="range" type="range" min="0" max="{{getItemRemaining(item.LineId, invoice.id)}}" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >-->
+										<input class="text" type="text" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >
+									</div>
+								</div>
+							</div>
+							<div class="mask">
+								Split the item here
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="mask">
-					Split the item to
-				</div>
 			</div>
+
+			
 		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script src="code.js"></script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-<script src="code.js"></script>
+
 </html>
