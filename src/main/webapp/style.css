@@ -1,0 +1,189 @@
+* {
+	font-size: 14px;
+	font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;;
+	box-sizing: border-box;
+}
+
+*:focus {
+    outline: 0;
+}
+
+body {
+	background-color: rgb(251, 251, 251);
+}
+
+.main {
+	width: 960px;
+	height: 600px;
+	margin: auto;
+	margin-top: 5px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 4px 0px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.main .toolbar {
+	background-color: rgba(214, 214, 187, 0.7);
+	height: 65px;
+	margin-bottom: 5px;
+}
+
+.main .toolbar-button {
+	border: none;
+	border-bottom: rgba(51, 51, 51, 0.5) 1px solid;
+	border-radius: 5px;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 16px;
+	padding: 16px;
+	width: 125px;
+	background-color: rgb(32, 160, 233);;
+	height: 50px;
+	float: right;
+	margin: 5px;
+}
+
+.main .toolbar-button:active {
+	border-bottom: none;
+	border-top: rgba(51, 51, 51, 0.5) 1px solid;
+}
+
+.origin-invoice,
+.split-invoices {
+	width: 480px;
+	float: left;
+	height: 100%;
+	overflow: auto;
+	padding: 0 10px;
+}
+
+.origin-invoice {
+	border-right: 1px dotted rgb(211, 211, 211);
+	
+}
+
+.invoice {
+	margin-bottom: 5px;
+	padding: 5px;
+	background-color: #EEE;
+}
+
+.invoice.empty {
+	height: 100px;
+}
+
+.header {
+	position: relative;
+	height: 36px;
+	line-height: 36px;
+	font-style: italic;
+	margin: 0 -10px;
+	font-size: 24px;
+	padding-left: 10px;
+	text-decoration: underline;
+}
+.invoice .header {
+	font-size: 16px;
+	height: 24px;
+	line-height: 24px;
+	position: relative;
+	margin: 0;
+	padding-left: 0;
+}
+.invoice .header .close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 24px;
+	height: 24px;
+	font-size: 20px;
+	text-align: center;
+	cursor: pointer;
+}
+.origin-invoice .item:hover {
+	cursor: url(http://files.softicons.com/download/toolbar-icons/free-bronze-button-icons-by-aha-soft/png/24x24/cursor%20v%20split.png);
+}
+
+.origin-invoice .item.selected {
+	border: 2px solid blue;
+}
+
+.item {
+	line-height: 30px;
+	height: 65px;
+	background-color: white;
+	margin: 10px 0;
+	border: transparent 2px solid;
+	box-shadow: rgba(0, 0, 255, 0.5) 0px 0px 4px 0px;
+}
+
+.item .field{
+	float: left;
+	text-align: left;
+	padding: 0 5px;
+}
+
+.field.id {
+	float: left;
+	height: 65px;
+	line-height: 60px;
+	width: 10%;
+	border-right: 1px dotted #CCC;
+	text-align: center;
+}
+
+.field.name {
+	width: 55%;
+	border-right: 1px dotted #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+.field.total {
+	width: 35%;
+	border-bottom: 1px solid #CCC;
+}
+
+.field.unitPrice {
+	width: 38%;
+	border-right: 1px dotted #CCC;
+}
+
+.field.quantity {
+	width: 52%;
+}
+
+.field.quantity > input.range{
+	width: 60px;
+	margin-left: 10px;
+	text-align: right;
+	vertical-align: middle;
+}
+
+.field.quantity > input.text {
+	width: 50px;
+	border: 0;
+	border-bottom: 1px solid #AAA;
+}
+
+.mask {
+	display: none;
+}
+.splitting .invoice {
+	position: relative;
+}
+.splitting .invoice .mask {
+	display: block;
+	color: white;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.4;
+	text-align: center;
+	line-height: 100px;
+}
+

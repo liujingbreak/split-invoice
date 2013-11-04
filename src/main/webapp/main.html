@@ -1,0 +1,46 @@
+<!DocType>
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body ng-app>
+	<div class="main" ng-controller="splitCtrl">
+		<div class="toolbar">
+			<div class="toolbar-button" ng-click="newSplitInvoice()" >New Split</div>
+			<div class="toolbar-button" ng-click="resetSplit()" >Reset</div>
+			<div class="toolbar-button" ng-click="save()" >Save Result</div>
+		</div>
+		<div class="origin-invoice">
+			<div class="header">Original Invoice</div>
+			<div class="item" ng-class="{selected: item.selected}" ng-repeat="item in originItems" ng-click="selectItemToSplit(item)" ng-show="item.remainQuantity > 0">
+				<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.remainQuantity}}</div>
+				<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div>
+				<div class="field quantity">Quantity: {{item.remainQuantity}}</div>
+			</div>
+		</div>
+		<div class="split-invoices" ng-class="{splitting: isSplitting}">
+			<div class="header">Splitted Invoices</div>
+			<div class="invoice" ng-class="{empty: invoice.items.length==0}" ng-repeat="invoice in splitInvoices" ng-click="addItemToSplitInvoice(selectedItem.LineId, invoice.id)">
+				<div class="header">
+					Invoice #{{invoice.id}}
+					<div class="close" ng-click="deleteSplitInvoice(invoice.id)">x</div>
+				</div>
+				<div class="item" ng-repeat="item in invoice.items">
+					<div class="line">
+						<div class="field id">{{item.LineId}}</div><div class="field name">{{item.Description}}</div><div class="field total">Total: {{item.UnitPrice * item.Quantity.value}}</div>
+						<div class="field unitPrice">Unit Price: {{item.UnitPrice}}</div><div class="field quantity">Quantity: 
+							<input class="range" type="range" min="0" max="{{getItemRemaining(item.LineId, invoice.id)}}" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >
+							<input class="text" type="text" ng-model="item.Quantity.value" ng-change="splitItem({{item.LineId}}, {{invoice.id}}, {{item.Quantity.value | number}})" >
+						</div>
+					</div>
+				</div>
+				<div class="mask">
+					Split the item to
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="code.js"></script>
+</html>

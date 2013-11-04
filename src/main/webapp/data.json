@@ -1,0 +1,14 @@
+[
+	{
+		name: 'Apple',
+		quantity: 500,
+		unitPrice: 2.0,
+		id: 1	
+	},
+	{
+		name: 'Orange',
+		quantity: 100,
+		unitPrice: 5.0,
+		id: 2
+	}
+]
